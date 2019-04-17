@@ -37,7 +37,6 @@ Public Class sizePickerForm
     End Sub
 
     Private Sub modeBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles modeBox.SelectedIndexChanged
-        'as usual, here is your darn select case. Oh how I loathe this structure
         Select Case modeBox.SelectedIndex
             Case 0
                 rowsField.Text = "9"
@@ -51,10 +50,14 @@ Public Class sizePickerForm
                 rowsField.Text = "16"
                 colsField.Text = "30"
                 minesField.Text = "99"
-            Case 3
-                rowsField.Text = ""
-                colsField.Text = ""
-                minesField.Text = ""
         End Select
+    End Sub
+
+    Private Sub TextFieldChanged(sender As Object, e As EventArgs) Handles rowsField.Click, colsField.Click, minesField.Click
+        modeBox.SelectedIndex = 3
+    End Sub
+
+    Private Sub sizePickerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        modeBox.SelectedIndex = 0 'because there is no way to set a default value for a combobox with style dropdownlist
     End Sub
 End Class

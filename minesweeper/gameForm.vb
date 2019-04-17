@@ -92,8 +92,6 @@ Public Class gameForm
             Next
         Next
 
-        'positionMines()
-
         paused = False 'make sure this is true at the start of every new game
 
         If isTimed = True Then
@@ -196,7 +194,7 @@ Public Class gameForm
         'make sure the cell isn't flagged
         If cells(x, y).Flagged = False Then
             'clear this cell
-            cells(x, y).TileButton.Visible = False
+            cells(x, y).Cleared = True
             remainingCells = remainingCells - 1
 
             'check the neighbors
@@ -204,7 +202,7 @@ Public Class gameForm
                 If (xA > -1 And xA < numCols) Then
                     For yA As Integer = y - 1 To y + 1
                         If (yA > -1 And yA < numRows) Then
-                            If cells(x, y).AdjacentMines = 0 And cells(xA, yA).HasMine = False And cells(xA, yA).TileButton.Visible = True Then
+                            If cells(x, y).AdjacentMines = 0 And cells(xA, yA).HasMine = False And cells(xA, yA).Cleared = False Then
                                 calculateCleared(xA, yA)
                             End If
                         End If
@@ -218,7 +216,7 @@ Public Class gameForm
         'for some reason this breaks on expert mode. not sure why
         For y As Integer = 0 To numCols - 1
             For x As Integer = 0 To numRows - 1
-                cells(x, y).TileButton.Visible = False
+                cells(x, y).Cleared = True
             Next
         Next
     End Sub
@@ -229,11 +227,31 @@ Public Class gameForm
         timerLabel.Text = iSpan.Minutes.ToString.PadLeft(2, "0"c) & ":" & iSpan.Seconds.ToString.PadLeft(2, "0"c)
     End Sub
 
+    Private Sub hideBoard()
+        For y As Integer = 0 To numCols - 1
+            For x As Integer = 0 To numRows - 1
+                cells(x, y).TileButton.Visible = True
+            Next
+        Next
+    End Sub
+
+    Private Sub unhideBoard()
+        For y As Integer = 0 To numCols - 1
+            For x As Integer = 0 To numRows - 1
+                If cells(x, y).Cleared = True Then 'only need to hide the cleared cells
+                    cells(x, y).TileButton.Visible = False
+                End If
+            Next
+        Next
+    End Sub
+
     Private Sub PauseUnpauseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PauseUnpauseToolStripMenuItem.Click
         If paused = False Then
             PauseUnpauseToolStripMenuItem.Text = "Unpause"
+            hideBoard()
         Else
             PauseUnpauseToolStripMenuItem.Text = "Pause"
+            unhideBoard()
         End If
 
         Timer1.Enabled = paused 'confusing

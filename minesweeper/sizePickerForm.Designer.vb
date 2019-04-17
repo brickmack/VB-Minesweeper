@@ -116,20 +116,19 @@ Partial Class sizePickerForm
         '
         'modeBox
         '
+        Me.modeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.modeBox.FormattingEnabled = True
         Me.modeBox.Items.AddRange(New Object() {"Beginner", "Intermediate", "Expert", "Custom"})
         Me.modeBox.Location = New System.Drawing.Point(200, 12)
         Me.modeBox.Name = "modeBox"
         Me.modeBox.Size = New System.Drawing.Size(121, 21)
         Me.modeBox.TabIndex = 9
-        Me.modeBox.Text = "Beginner"
         '
         'sizePickerForm
         '
         Me.AcceptButton = Me.okButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.cancelButton = Me.cancelButton
         Me.ClientSize = New System.Drawing.Size(333, 146)
         Me.Controls.Add(Me.modeBox)
         Me.Controls.Add(Me.cancelButton)

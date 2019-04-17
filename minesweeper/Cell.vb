@@ -6,6 +6,7 @@ Public Class Cell
     Private _tileButton As Button
     Private _hasMine As Boolean
     Private _flagged As Boolean
+    Private _cleared As Boolean
     Private _adjacentMines As Integer
 
     Private _colors As Color() = {Color.Blue, Color.Green, Color.Red, Color.Purple, Color.Maroon, Color.Turquoise, Color.Black, Color.Gray}
@@ -48,6 +49,17 @@ Public Class Cell
             Else
                 _tileButton.Text = ""
             End If
+        End Set
+    End Property
+
+    Public Property Cleared As Boolean
+        Get
+            Return _cleared
+        End Get
+        Set(value As Boolean)
+            _cleared = value
+            'show or hide the Button object as needed
+            _tileButton.Visible = Not (_cleared)
         End Set
     End Property
 
